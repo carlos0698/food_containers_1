@@ -32,31 +32,29 @@ A test video (`video_containers_3.mp4`) is used to detect movements, disappearan
 
 ---
 
-## **Project Structure**
+## 📂 Project Structure
 
-
-
-
-
+```bash
 food_containers/
-│── data/                  # Filtered and organized data
-│   ├── annotations/       # Annotations in COCO or other formats
-│   ├── filtered/          # Filtered COCO data
-│   ├── train/             # Training data
-│   ├── val/               # Validation data
-│   ├── fine_tuning/       # Data for fine-tuning
-│   ├── augmented_images/  # Augmented images
-│   ├── video_containers_3.mp4  # Test video
-│── scripts/               # Project scripts
-│   ├── preprocessing.py   # Data preprocessing
-│   ├── training.py        # Model training
-│   ├── fine_tuning.py     # Model fine-tuning
-│   ├── inference_visualization.py       # Inference with new data
-│── results/               # Inference results
-│── runs/                  # Folder for checkpoints and logs and training results
-│── requirements.txt       # Project dependencies
-│── README.md              # Main documentation
-│── .gitignore             
+│── data/                     # Filtered and organized data
+│   ├── annotations/          # Annotations in COCO or other formats
+│   ├── filtered/             # Filtered COCO data
+│   ├── train/                # Training data
+│   ├── val/                  # Validation data
+│   ├── fine_tuning/          # Data for fine-tuning
+│   ├── augmented_images/     # Augmented images
+│   ├── video_containers_3.mp4 # Test video
+│── scripts/                  # Project scripts
+│   ├── preprocessing.py      # Data preprocessing
+│   ├── training.py           # Model training
+│   ├── fine_tuning.py        # Model fine-tuning
+│   ├── inference_visualization.py # Inference with new data
+│── results/                  # Inference results
+│── runs/                     # Checkpoints, logs, and training results
+│── requirements.txt          # Project dependencies
+│── README.md                 # Main documentation
+│── .gitignore                # Ignore unnecessary files
+```
 
 
 ## **Setup**
