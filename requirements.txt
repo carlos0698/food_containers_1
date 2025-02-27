@@ -1,0 +1,5 @@
+pycocotools
+requests
+ultralytics
+opencv-python  # Para usar cv2
+deep-sort-realtime  # Para usar DeepSort

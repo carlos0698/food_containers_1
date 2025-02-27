@@ -1,0 +1,42 @@
+import os
+import random
+import shutil
+
+# Rutas de las carpetas de entrada (val)
+val_images_folder = "/Volumes/Disco Ana/food_containers/data/filtered/val/images"  # Carpeta con las imágenes de validación
+val_labels_folder = "/Volumes/Disco Ana/food_containers/data/filtered/val/labels"  # Carpeta con las anotaciones de validación
+
+# Rutas de las carpetas de salida (val_half)
+output_images_folder = "/Volumes/Disco Ana/food_containers/data/filtered/images_ft"  # Carpeta para guardar las imágenes seleccionadas
+output_labels_folder = "/Volumes/Disco Ana/food_containers/data/filtered/labels_ft"  # Carpeta para guardar las anotaciones seleccionadas
+
+# Crear carpetas de salida si no existen
+os.makedirs(output_images_folder, exist_ok=True)
+os.makedirs(output_labels_folder, exist_ok=True)
+
+# Obtener la lista de imágenes en la carpeta de validación
+image_files = [f for f in os.listdir(val_images_folder) if f.endswith((".jpg", ".png", ".jpeg"))]
+
+# Calcular la mitad del número de imágenes
+half_size = len(image_files) // 2
+
+# Seleccionar aleatoriamente la mitad de las imágenes
+selected_images = random.sample(image_files, half_size)
+
+# Copiar las imágenes y anotaciones seleccionadas
+for image_name in selected_images:
+    # Copiar la imagen
+    image_path = os.path.join(val_images_folder, image_name)
+    output_image_path = os.path.join(output_images_folder, image_name)
+    shutil.copy(image_path, output_image_path)
+
+    # Copiar la anotación correspondiente
+    label_name = os.path.splitext(image_name)[0] + ".txt"
+    label_path = os.path.join(val_labels_folder, label_name)
+    output_label_path = os.path.join(output_labels_folder, label_name)
+    if os.path.exists(label_path):  # Verificar si la anotación existe
+        shutil.copy(label_path, output_label_path)
+    else:
+        print(f"Advertencia: No se encontró la anotación para {image_name}")
+
+print(f"Se copiaron {len(selected_images)} imágenes y anotaciones a {output_images_folder} y {output_labels_folder}")

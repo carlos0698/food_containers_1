@@ -1,0 +1,8 @@
+train: /Volumes/Disco Ana/food_containers/data/filtered/train/images
+val: /Volumes/Disco Ana/food_containers/data/filtered/val/images
+
+# Número de clases
+nc: 4  
+
+# Nombres de las clases
+names: ['bottle','wine glass','cup','bowl']
