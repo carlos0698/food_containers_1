@@ -34,6 +34,8 @@ A test video (`video_containers_3.mp4`) is used to detect movements, disappearan
 
 ## 📂 Project Structure
 
+Note: The project structure shown below does not include a script for data augmentation. If data augmentation is needed, please refer to the script: augmenta_torch.py.
+
 ```bash
 food_containers/
 │── data/                     # Filtered and organized data
