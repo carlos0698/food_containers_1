@@ -1,36 +1,47 @@
 
 # Food Containers Detection & Tracking - Computer Vision Task
 
-This repository contains the code and resources for detecting and tracking food containers in a dining hall. The goal is to monitor food consumption and refills using a video feed.
+This repository contains the code and resources for detecting and tracking food containers in a dining hall video feed. The goal is to monitor food consumption and refills by identifying container movements and events.
 
----
+## Approach
 
-## **Approach**
+### Dataset
+We use the [COCO dataset](https://cocodataset.org/), filtered to include relevant classes:
+- Bowl
+- Wine Glass
+- Cup
+- Bottle
 
-### **Dataset**
-We use the **COCO dataset** ([COCO Dataset](https://cocodataset.org/#home)), filtering it to include only the following classes:
-- **Bowl**
-- **Wine Glass**
-- **Cup**
-- **Bottle**
+The dataset is split into training, validation, and fine-tuning subsets, with augmentation applied to enhance robustness.
 
-### **Model**
-We use **YOLOv8n** for object detection because:
-- It is **lightweight** and optimized for real-time processing.
-- It provides a good balance between **accuracy** and **speed**.
+### Model
+We use [**YOLOv8n**](https://github.com/ultralytics/ultralytics) for object detection and [**DeepSORT**](https://github.com/ZQPei/deep_sort_pytorch) for tracking because:
+- **YOLOv8n**: Lightweight and optimized for real-time processing (~40 FPS on local hardware), balancing precision and latency for this task.
+- **DeepSORT**: Provides persistent tracking with unique IDs, enabling event detection across frames.
 
-### **Fine-Tuning**
-The model is fine-tuned using **half of the COCO validation dataset** to avoid overfitting. Data augmentation techniques (brightness, contrast, noise, flips) are applied to improve robustness.
+### Fine-Tuning
+The YOLOv8n model is fine-tuned using half of the COCO validation set to avoid overfitting. Data augmentation (brightness, contrast, noise, flips) improves robustness to varying dining hall conditions, such as low-light scenarios.
 
-### **Training**
-Training is done on a local machine using:
-- **PyTorch** and **Ultralytics** for YOLOv8.
-- **Adam optimizer** for efficient training.
+### Training
+Training is performed on a local machine with:
+- PyTorch and Ultralytics for YOLOv8.
+- AdamW optimizer for efficient convergence.
 
-### **Inference**
-A test video (`video_containers_3.mp4`) is used to detect movements, disappearances, and refills of bowls. The model outputs timestamps for each event in **JSON format**.
+### Inference
+The script processes a test video (`video_containers_3.mp4`) to:
+1. Detect containers using YOLOv8n.
+2. Track them with DeepSORT, assigning unique IDs.
+3. Identify events: 
+   - **Movement**: Detected when a container's bounding box shifts >5 pixels.
+   - **Refill**: Inferred when a container reappears after disappearing for >3 seconds.
+   - **Disappearance**: Logged when a container exits the frame.
+4. Output events with timestamps in JSON format (`events_2.json`).
 
----
+### Optimizations
+- **Real-time**: YOLOv8n ensures low latency, achieving ~40 FPS locally (tested on a mid-range CPU).
+- **Low-light**: CLAHE preprocessing enhances contrast in frames, complemented by brightness/contrast augmentation during training.
+- **Robustness**: DeepSORT reduces false positives by maintaining track consistency, while fine-tuning improves raw detection accuracy.
+
 
 ## 📂 Project Structure
 
